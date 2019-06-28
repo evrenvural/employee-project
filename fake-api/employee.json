@@ -13,24 +13,6 @@
       "id": 2
     },
     {
-      "name": "Furkan Aykut",
-      "department": "Malzeme",
-      "salary": "4650",
-      "id": 3
-    },
-    {
-      "name": "Erdem Gür",
-      "department": "Malzeme",
-      "salary": "5654",
-      "id": 4
-    },
-    {
-      "name": "Gamze Öztürk",
-      "department": "Grafik",
-      "salary": "7850",
-      "id": 5
-    },
-    {
       "name": "Elif Şevval Yavuz",
       "department": "Malzeme",
       "salary": "4500",
@@ -41,12 +23,6 @@
       "department": "Tıp",
       "salary": "70000",
       "id": 7
-    },
-    {
-      "name": "Funda Türk",
-      "department": "Endüstri",
-      "salary": "4500",
-      "id": 8
     },
     {
       "name": "Eren Samet Karataş",

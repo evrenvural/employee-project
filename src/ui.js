@@ -40,6 +40,10 @@ export class UI{
         this.departmentInput.val("");
         this.salaryInput.val("");
     }
+
+    deleteEmployee(tr){
+        tr.remove();
+    }
 }
 
 // <!-- <tr>

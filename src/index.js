@@ -8,14 +8,23 @@ const form = $("#employee-form");
 const nameInput = $("#name");
 const departmentInput = $("#department");
 const salaryInput = $("#salary");
+const employeeList = $("#employees");
+const updateEmployeeButton = $("#update");
 
 eventListeners();
 
 function eventListeners(){
     $("document").ready(()=>{
-        getAllEmployees();
+        // Gets all employees
+        empRequest.get()
+        .then(employees =>{
+            ui.addAllEmployees(employees);
+        })
+        .catch(error => console.error(error));
     });
+    
     form.submit((e)=>{
+        // Adds new employee to ui and json
         e.preventDefault();
         
         const empName = nameInput.val().trim();
@@ -39,12 +48,24 @@ function eventListeners(){
         }
         ui.clearInputs();
     });
-}
 
-function getAllEmployees(){
-    empRequest.get()
-    .then(employees =>{
-        ui.addAllEmployees(employees);
-    })
-    .catch(error => console.error(error));
+    employeeList.click((e)=>{
+        e.preventDefault();
+        // Updates or deletes the employee from ui and json
+       
+        if(e.target.id === "delete-employee"){
+            //Delete events
+            const id = e.target.parentElement.previousSibling.previousSibling.textContent;
+            empRequest.delete(id)
+            .then(meessage =>{
+                ui.deleteEmployee(e.target.parentElement.parentElement);
+            })
+            .catch(err => console.error(err));
+
+        }
+        else if (e.target.id === "update-employee"){
+            //Update events
+        }
+        
+    });
 }
