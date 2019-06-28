@@ -11,6 +11,8 @@ const salaryInput = $("#salary");
 const employeeList = $("#employees");
 const updateEmployeeButton = $("#update");
 
+let updateState = null;
+
 eventListeners();
 
 function eventListeners(){
@@ -55,7 +57,8 @@ function eventListeners(){
        
         if(e.target.id === "delete-employee"){
             //Delete events
-            const id = e.target.parentElement.previousSibling.previousSibling.textContent;
+            const id = e.target.parentElement.parentElement.children[3].textContent;
+            
             empRequest.delete(id)
             .then(meessage =>{
                 ui.deleteEmployee(e.target.parentElement.parentElement);
@@ -65,7 +68,31 @@ function eventListeners(){
         }
         else if (e.target.id === "update-employee"){
             //Update events
+            ui.toggleUpdateButton(e.target.parentElement.parentElement);
+
+            if(updateState === null){
+                updateState = {
+                    updateId : e.target.parentElement.parentElement.children[3].textContent,
+                    updateParent : e.target.parentElement.parentElement
+                }
+            }
+            else{
+                updateState = null;
+            }
         }
         
     });
+
+    updateEmployeeButton.click(()=>{
+        if(updateState){
+            const data = {name:nameInput.val().trim(), department: departmentInput.val().trim(), salary: salaryInput.val().trim()};
+            empRequest.put(updateState.updateId, data)
+            .then(updatedEmployee =>{
+                ui.updateEmployee(updatedEmployee, updateState.updateParent);
+            })
+            .catch(err => console.error(err));
+        }
+    })
+
 }
+

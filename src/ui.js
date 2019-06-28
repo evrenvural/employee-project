@@ -44,15 +44,34 @@ export class UI{
     deleteEmployee(tr){
         tr.remove();
     }
-}
 
-// <!-- <tr>
-                                            
-// <td>Mustafa Murat Coşkun</td>
-// <td>Bilişim</td>
-// <td>4000</td>
-// <td>1</td>
-// <td><a href="#" id = "update-employee" class= "btn btn-danger">Güncelle</a></td> 
-// <td> <a href="#" id = "delete-employee" class= "btn btn-danger">Sil</a></td>
-// </tr>
-// -->
+    toggleUpdateButton(target){
+        if(this.updateButton.css("display") === "none"){
+            this.updateButton.show();
+            this.addAllEmployeeInfoToInputs(target);
+        }
+        else{
+            this.updateButton.hide();
+            this.clearInputs();
+        }
+    }
+
+    addAllEmployeeInfoToInputs(target){
+        this.nameInput.val(target.children[0].innerText);
+        this.departmentInput.val(target.children[1].innerText);
+        this.salaryInput.val(target.children[2].innerText);
+    }
+
+    updateEmployee(employee, parent){
+        parent.innerHTML = `
+            <tr>
+                <td>${employee.name}</td>
+                <td>${employee.department}</td>
+                <td>${employee.salary}</td>
+                <td>${employee.id}</td>
+                <td><a href="#" id = "update-employee" class= "btn btn-danger">Güncelle</a></td> 
+                <td> <a href="#" id = "delete-employee" class= "btn btn-danger">Sil</a></td>               
+            </tr>       
+        `;
+    }
+}
