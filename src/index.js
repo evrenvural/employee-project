@@ -8,14 +8,36 @@ const form = $("#employee-form");
 const nameInput = $("#name");
 const departmentInput = $("#department");
 const salaryInput = $("#salary");
-const employeeList = $("#employee");
-const updateEmployeeButton = $("#update");
 
 eventListeners();
 
 function eventListeners(){
     $("document").ready(()=>{
         getAllEmployees();
+    });
+    form.submit((e)=>{
+        e.preventDefault();
+        
+        const empName = nameInput.val().trim();
+        const empDep = departmentInput.val().trim();
+        const empSalary = salaryInput.val().trim();
+
+        if(empName === "" || empDep === "" || empSalary === ""){
+            alert("Lütfen Tüm alanları doldurun");
+        }
+        else{
+            const employee = {
+                name: nameInput.val().trim(),
+                department : departmentInput.val().trim(),
+                salary : salaryInput.val().trim()
+            };
+            empRequest.post(employee)
+            .then((response)=>{
+                ui.addEmployee(response);
+            })
+            .catch(err => console.error(err));
+        }
+        ui.clearInputs();
     });
 }
 
